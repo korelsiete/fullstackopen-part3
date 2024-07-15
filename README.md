@@ -34,7 +34,7 @@ Deploy a Node application that returns an encrypted list of phonebook entries fr
 const express = require("express");
 const app = express();
 
-const persons = [
+let persons = [
   {
     id: 1,
     name: "Arto Hellas",
@@ -101,5 +101,25 @@ app.get("/api/persons/:id", (req, res) => {
   }
 
   res.json(person);
+});
+```
+
+## Step 4
+
+Implements functionality that makes it possible to delete a single phonebook entry using an HTTP DELETE request to the unique URL of that phonebook entry
+
+**index.js:**
+
+```js
+app.delete("/api/persons/:id", (req, res) => {
+  const id = Number(req.params.id);
+  const person = persons.find((person) => person.id === id);
+
+  if (!person) {
+    return res.status(404).end();
+  }
+
+  persons = persons.filter((person) => person.id !== id);
+  res.status(204).end();
 });
 ```
