@@ -82,3 +82,24 @@ app.get("/info", (req, res) => {
   );
 });
 ```
+
+## Step 3
+
+Implements functionality to display information for a single phonebook entry.
+
+If no entry is found for the given ID, the server should respond with the appropriate status code.
+
+**index.js:**
+
+```js
+app.get("/api/persons/:id", (req, res) => {
+  const id = Number(req.params.id);
+  const person = persons.find((person) => person.id === id);
+
+  if (!person) {
+    return res.status(404).end();
+  }
+
+  res.json(person);
+});
+```
