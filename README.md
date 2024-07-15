@@ -123,3 +123,33 @@ app.delete("/api/persons/:id", (req, res) => {
   res.status(204).end();
 });
 ```
+
+## Step 5
+
+Expands the backend so that new entries can be added to the phonebook by making HTTP POST requests to the address http://localhost:3001/api/persons.
+
+Generate a new id for the calendar entry with the Math.random function
+
+**Function:**
+
+```js
+function generateId() {
+  return Math.floor(Math.random() * 100000000);
+}
+```
+
+**index.js:**
+
+```js
+app.use(express.json());
+...
+app.post("/api/persons", (req, res) => {
+  const body = req.body;
+  const newPerson = {
+    id: generateId(),
+    ...body,
+  };
+  persons = persons.concat(newPerson);
+  res.status(201).json(newPerson);
+});
+```
