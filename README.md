@@ -153,3 +153,26 @@ app.post("/api/persons", (req, res) => {
   res.status(201).json(newPerson);
 });
 ```
+
+## Step 6
+
+Implement error handling to create new entries
+
+**Name or number is missing:**
+
+```js
+if (!body.name || !body.number) {
+  return res.status(400).json({
+    error: "name or number missing",
+  });
+}
+```
+
+**The name already exists in the phonebook:**
+
+```js
+const isPersonOnList = persons.find((person) => person.name === body.name);
+if (isPersonOnList) {
+  return res.status(400).json({ error: "name must be unique" });
+}
+```
