@@ -1,0 +1,19 @@
+{
+  "name": "fullstackopen-part3",
+  "version": "0.0.1",
+  "description": "fullstackopen part3",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "author": "korels7 <pajita200305@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}
