@@ -66,3 +66,19 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 ```
+
+## Step 2
+
+Deploys a page at the address http://localhost:3001/info
+
+The page needs to show the time the request was received and how many entries are in the phonebook at the time the request is processed.
+
+**index.js:**
+
+```js
+app.get("/info", (req, res) => {
+  res.send(
+    `<p>Phonebook has info for ${persons.length} people</p><p>${new Date()}</p>`
+  );
+});
+```
