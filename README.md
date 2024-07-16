@@ -186,3 +186,19 @@ const morgan = require("morgan");
 ...
 app.use(morgan("tiny"));
 ```
+
+## Step 8
+
+Configure Morgan to also display data sent in HTTP POST requests:
+
+```js
+morgan.token("content", function (req, res) {
+  return JSON.stringify(req.body);
+});
+
+app.use(
+  morgan(
+    ":method :url :status :res[content-length] - :response-time ms :content"
+  )
+);
+```
