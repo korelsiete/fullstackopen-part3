@@ -176,3 +176,13 @@ if (isPersonOnList) {
   return res.status(400).json({ error: "name must be unique" });
 }
 ```
+
+## Step 7
+
+Add morgan middleware to your application for message logging. Set it to log messages to your console based on the tiny setting.
+
+```js
+const morgan = require("morgan");
+...
+app.use(morgan("tiny"));
+```
