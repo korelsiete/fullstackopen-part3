@@ -1,5 +1,7 @@
 # fullstackopen-part3 | PhoneBook
 
+[**App deployed**](https://phonebook-nwcj.onrender.com)
+
 ## Step 1
 
 Deploy a Node application that returns an encrypted list of phonebook entries from the address http://localhost:3001/api/persons.
@@ -206,3 +208,11 @@ app.use(
 ## Step 9
 
 Make the backend work with the phonebook frontend from the exercises in the previous part.
+
+## Step 10
+
+- Deploy the backend to the Internet
+- Test the backend deployed with a browser and the VS Code REST client
+
+Created: `client.rest`
+Deployed: `https://phonebook-nwcj.onrender.com/`
