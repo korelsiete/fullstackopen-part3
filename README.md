@@ -216,3 +216,49 @@ Make the backend work with the phonebook frontend from the exercises in the prev
 
 Created: `client.rest`
 Deployed: `https://phonebook-nwcj.onrender.com/`
+
+## Step 11
+
+- Generate a production build of your frontend and add it to the web application using the method introduced in this part.
+- Also, make sure the frontend still works locally
+
+**Commands:**
+
+```json
+// package.json
+
+"build:ui": "rm -rf dist && cd ../phoneBook && npm run build && cp -r dist ../fullstackopen-part3",
+"deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push"
+```
+
+Generated: `dist`
+
+**Middlewares:**
+
+```js
+app.use(cors());
+app.use(express.static("dist"));
+```
+
+**Configure frontend:**
+
+```js
+// services/persons.js
+const baseUrl = "/api/persons";
+```
+
+```js
+// vite.config.js
+
+export default defineConfig({
+  plugins: [react()],
+  server: {
+    proxy: {
+      "/api": {
+        target: "http://localhost:3001",
+        changeOrigin: true,
+      },
+    },
+  },
+});
+```
