@@ -262,3 +262,55 @@ export default defineConfig({
   },
 });
 ```
+
+## Step 12
+
+- Create a cloud-based MongoDB database for your phonebook application with MongoDB Atlas.
+- Creates a mongo.js file in the project directory, which can be used to add entries to the agenda and to list all existing entries in the agenda.
+
+**Created:** `mongo.js`
+
+**Add new entries to the phonebook:**
+
+```js
+// mongo.js
+...
+if (argsLength === 3) {
+  Person.find({}).then((people) => {
+    console.log("phonebook:");
+    people.forEach((person) => {
+      console.log(`${person.name} ${person.number}`);
+    });
+    mongoose.connection.close();
+  });
+}
+```
+
+**Get all entries from the phonebook:**
+
+```js
+// mongo.js
+...
+if (argsLength > 3) {
+  if (!number) {
+    console.log("number argument missing");
+    process.exit(1);
+  }
+
+  const person = new Person({
+    name,
+    number,
+  });
+
+  person
+    .save()
+    .then(() => {
+      console.log(`added ${person.name} number ${person.number} to phonebook`);
+      mongoose.connection.close();
+    })
+    .catch((error) => {
+      console.log(error.message);
+      process.exit(1);
+    });
+}
+```
