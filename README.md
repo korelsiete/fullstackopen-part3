@@ -354,3 +354,31 @@ app.get("/api/persons", (req, res) => {
 ...
 const PORT = process.env.PORT;
 ```
+
+## Step 14
+
+Change the backend so that the new numbers are saved in the database.
+
+- **Config post request to save the data in the database.**
+
+```js
+// index.js
+app.post("/api/persons", (req, res) => {
+  const { name, number } = req.body;
+
+  if (!name || !number) {
+    return res.status(400).json({
+      error: "name or number missing",
+    });
+  }
+
+  const person = new Person({
+    name,
+    number,
+  });
+
+  person.save().then((personSaved) => {
+    res.status(201).json(personSaved);
+  });
+});
+```
