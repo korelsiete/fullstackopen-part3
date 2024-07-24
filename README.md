@@ -314,3 +314,43 @@ if (argsLength > 3) {
     });
 }
 ```
+
+## Step 13
+
+Changes the search for all phonebook entries so that the data is obtained from the database.
+
+- **Create a new model for the phonebook.**
+
+```js
+// models/person.js
+...
+const personSchema = new mongoose.Schema({
+  name: String,
+  number: String,
+});
+
+personSchema.set("toJSON", {
+  transform: (doc, ret) => {
+    ret.id = ret._id.toString();
+    delete ret._id;
+    delete ret.__v;
+  },
+});
+
+module.exports = mongoose.model("Person", personSchema);
+```
+
+- **Config /api/persons endpoint to return the data from the database.**
+
+```js
+// index.js
+require("dotenv").config();
+...
+app.get("/api/persons", (req, res) => {
+  Person.find({}).then((people) => {
+    res.json(people);
+  });
+});
+...
+const PORT = process.env.PORT;
+```
