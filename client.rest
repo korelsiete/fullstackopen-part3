@@ -7,13 +7,13 @@ GET http://localhost:3001/api/persons
 GET http://localhost:3001/api/persons/1
 
 ###
-DELETE http://localhost:3001/api/persons/66a16610c3b7504a2ca8d0e6
+DELETE http://localhost:3001/api/persons/600000000c
 
 ###
 POST http://localhost:3001/api/persons
 Content-Type: application/json
 
 {
-  "name": "Ryan Dahl",
+  "name": "",
   "number": "08-345-300-8900"
 }

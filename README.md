@@ -426,3 +426,17 @@ const errorHandler = (error, req, res, next) => {
 app.use(unknownEndpoint);
 app.use(errorHandler);
 ```
+
+## Step 17
+
+- **Config put request to update the data in the database.**
+
+```js
+app.put("/api/persons/:id", (req, res, next) => {
+  const person = req.body;
+
+  Person.findByIdAndUpdate(req.params.id, person, { new: true })
+    .then((updatedPerson) => res.json(updatedPerson))
+    .catch((error) => next(error));
+});
+```
