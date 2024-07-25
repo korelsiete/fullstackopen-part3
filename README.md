@@ -382,3 +382,21 @@ app.post("/api/persons", (req, res) => {
   });
 });
 ```
+
+## Step 15
+
+Change the backend so that deleting phonebook entries is reflected in the database.
+
+- **Config delete request to delete the data in the database.**
+
+```js
+app.delete("/api/persons/:id", (req, res) => {
+  Person.findByIdAndDelete(req.params.id)
+    .then((personDeleted) =>
+      !personDeleted
+        ? res.status(404).json({ error: "person not found" })
+        : res.status(204).end()
+    )
+    .catch(() => res.status(400).end());
+});
+```
