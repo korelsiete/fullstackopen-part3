@@ -28,6 +28,20 @@ let persons = [
   },
 ];
 
+const unknownEndpoint = (request, response) => {
+  response.status(404).send({ error: "unknown endpoint" });
+};
+
+const errorHandler = (error, req, res, next) => {
+  console.error(`${error.name}: ===> ${error.message}`);
+
+  if (error.name === "CastError") {
+    return res.status(400).send({ error: "malformatted id" });
+  }
+
+  next(error);
+};
+
 morgan.token("content", function (req, res) {
   return JSON.stringify(req.body);
 });
@@ -64,14 +78,14 @@ app.get("/api/persons/:id", (req, res) => {
   res.json(person);
 });
 
-app.delete("/api/persons/:id", (req, res) => {
+app.delete("/api/persons/:id", (req, res, next) => {
   Person.findByIdAndDelete(req.params.id)
     .then((personDeleted) =>
       !personDeleted
         ? res.status(404).json({ error: "person not found" })
         : res.status(204).end()
     )
-    .catch(() => res.status(400).end());
+    .catch((error) => next(error));
 });
 
 app.post("/api/persons", (req, res) => {
@@ -92,6 +106,9 @@ app.post("/api/persons", (req, res) => {
     res.status(201).json(personSaved);
   });
 });
+
+app.use(unknownEndpoint);
+app.use(errorHandler);
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {

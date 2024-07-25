@@ -400,3 +400,29 @@ app.delete("/api/persons/:id", (req, res) => {
     .catch(() => res.status(400).end());
 });
 ```
+
+## Step 16
+
+Moves application error handling to new error handling middleware.
+
+- **Config error handling middleware.**
+
+```js
+const errorHandler = (error, req, res, next) => {
+  console.error(`${error.name}: ===> ${error.message}`);
+
+  if (error.name === "CastError") {
+    return res.status(400).send({ error: "malformatted id" });
+  }
+
+  next(error);
+};
+```
+
+- **Use error handling middleware.**
+
+```js
+...
+app.use(unknownEndpoint);
+app.use(errorHandler);
+```
