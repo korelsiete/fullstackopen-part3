@@ -4,16 +4,25 @@ GET http://localhost:3001/info
 GET http://localhost:3001/api/persons
 
 ###
-GET http://localhost:3001/api/persons/1
+GET http://localhost:3001/api/persons/669f082f976be703c9f87927
 
 ###
-DELETE http://localhost:3001/api/persons/600000000c
+DELETE http://localhost:3001/api/persons/669f082f976be703c9f87927
 
 ###
 POST http://localhost:3001/api/persons
 Content-Type: application/json
 
 {
-  "name": "",
-  "number": "08-345-300-8900"
+  "name": "Aylin",
+  "number": "03-345-200-4900"
+}
+
+###
+PUT http://localhost:3001/api/persons/66a2937546ae1621ac98c507
+Content-Type: application/json
+
+{
+  "name": "Ryan Dahl",
+  "number": "51-987-345-322"
 }

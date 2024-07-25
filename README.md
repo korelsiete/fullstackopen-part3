@@ -429,6 +429,8 @@ app.use(errorHandler);
 
 ## Step 17
 
+The frontend will attempt to update the phone number of the existing entry by making an HTTP PUT request to the entry's unique URL.
+
 - **Config put request to update the data in the database.**
 
 ```js
@@ -438,5 +440,37 @@ app.put("/api/persons/:id", (req, res, next) => {
   Person.findByIdAndUpdate(req.params.id, person, { new: true })
     .then((updatedPerson) => res.json(updatedPerson))
     .catch((error) => next(error));
+});
+```
+
+## Step 18
+
+Also updates the handling of the api/persons/:id and info routes to use the database
+
+- **Config get request by id to return the data from the database.**
+
+```js
+app.get("/api/persons/:id", (req, res, next) => {
+  Person.findById(req.params.id)
+    .then((person) =>
+      person
+        ? res.json(person)
+        : res.status(404).send({ error: "person not found" })
+    )
+    .catch((error) => next(error));
+});
+```
+
+- **Config /info endpoint to return the data from the database.**
+
+```js
+app.get("/info", (req, res) => {
+  Person.find({}).then((people) => {
+    res.send(
+      `<p>Phonebook has info for ${
+        people.length
+      } people</p><p>${new Date()}</p>`
+    );
+  });
 });
 ```
