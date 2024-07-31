@@ -474,3 +474,48 @@ app.get("/info", (req, res) => {
   });
 });
 ```
+
+## Step 19
+
+Extends validation so that the name stored in the database is at least three characters long.
+
+- **Config validation.**
+
+```js
+// models/person.js
+
+const personSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    minlength: 3,
+    required: true,
+    unique: true,
+  },
+  number: String,
+});
+```
+
+- **Use validation.**
+
+```js
+// index.js
+
+app.post("/api/persons", (req, res, next) => {
+  ...
+  person
+    .save()
+    .then((personSaved) => res.status(201).json(personSaved))
+    .catch((error) => next(error));
+})
+
+app.put("/api/persons/:id", (req, res, next) => {
+  ...
+  Person.findByIdAndUpdate(req.params.id, person, {
+    new: true,
+    runValidators: true,
+    context: "query",
+  })
+    .then((updatedPerson) => res.json(updatedPerson))
+    .catch((error) => next(error));
+})
+```
