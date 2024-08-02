@@ -7,15 +7,15 @@ GET http://localhost:3001/api/persons
 GET http://localhost:3001/api/persons/669f082f976be703c9f87927
 
 ###
-DELETE http://localhost:3001/api/persons/669f082f976be703c9f87927
+DELETE http://localhost:3001/api/persons/66ac215e47fd378f8dc4066e
 
 ###
 POST http://localhost:3001/api/persons
 Content-Type: application/json
 
 {
-  "name": "Aylin",
-  "number": "03-345-200-4900"
+  "name": "Aylin Siete",
+  "number": "03-345"
 }
 
 ###

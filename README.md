@@ -519,3 +519,29 @@ app.put("/api/persons/:id", (req, res, next) => {
     .catch((error) => next(error));
 })
 ```
+
+## Step 20
+
+Add validation so that phone numbers are formatted correctly. A phone number must:
+
+- Be 8 or more characters long.
+- Be made up of two parts separated by -, the first part has two or three numbers and the second part also consists of numbers
+
+- **Config validation.**
+
+```js
+// models/person.js
+
+const personSchema = new mongoose.Schema({
+  ...
+  number: {
+    type: String,
+    minlength: 8,
+    validate: {
+      validator: (v) => /^\d\d\d?-\d+$/.test(v),
+      message: (props) => `${props.value} is not a valid phone number!`,
+    },
+    required: [true, "User phone number required"],
+  },
+})
+```
