@@ -545,3 +545,15 @@ const personSchema = new mongoose.Schema({
   },
 })
 ```
+
+## Step 21
+
+Generate a new "full stack" version of the application by creating a new production build of the frontend and copying it to the backend repository.
+
+```json
+"build:ui": "rm -rf dist && cd ../phoneBook && npm run build && cp -r dist ../fullstackopen-part3"
+```
+
+```shell
+npm run build:ui
+```
