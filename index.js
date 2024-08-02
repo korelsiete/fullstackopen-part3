@@ -23,7 +23,7 @@ const errorHandler = (error, req, res, next) => {
   next(error);
 };
 
-morgan.token("content", function (req, res) {
+morgan.token("content", function (req) {
   return JSON.stringify(req.body);
 });
 
